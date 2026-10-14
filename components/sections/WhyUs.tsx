@@ -1,34 +1,61 @@
 "use client";
 
-import { Code2, Server, Cpu } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Code2, Cpu, Server } from "lucide-react";
+
 import { AnimatedSection } from "@/components/AnimatedSection";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { useT } from "@/lib/use-i18n";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { useLocale, useT } from "@/lib/use-i18n";
 
 const icons = [Code2, Server, Cpu];
 
 export function WhyUs() {
   const t = useT();
+  const locale = useLocale();
+
   return (
-    <section className="dot-pattern bg-surface py-20 sm:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading kicker={t.why.kicker} title={t.why.title} />
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
+    <section className="bg-surface py-20 sm:py-28">
+      <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-8">
+        <AnimatedSection className="lg:sticky lg:top-32 lg:col-span-5 lg:self-start">
+          <Eyebrow>{t.why.kicker}</Eyebrow>
+          <h2 className="text-h2 mt-5 text-foreground">{t.why.title}</h2>
+          <Link
+            href={`/${locale}/about`}
+            className="group mt-8 inline-flex items-center gap-1.5 text-sm font-semibold text-steel hover:text-primary"
+          >
+            {t.nav.about}
+            <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+          </Link>
+        </AnimatedSection>
+
+        <ol className="divide-y divide-border border-y border-border lg:col-span-7">
           {t.why.items.map((item, i) => {
             const Icon = icons[i] ?? Code2;
             return (
-              <AnimatedSection key={item.title} delay={i * 0.1}>
-                <div className="h-full rounded-md border border-border bg-card p-8 text-center card-lift">
-                  <div className="mx-auto inline-flex rounded-full bg-primary p-4 text-primary-foreground">
-                    <Icon className="size-6" />
+              <li key={item.title}>
+                <AnimatedSection
+                  delay={i * 0.08}
+                  className="group grid gap-4 py-8 sm:grid-cols-[4rem_1fr] sm:gap-6"
+                >
+                  <span className="font-display text-sm font-medium text-muted-foreground tabular-nums">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <div className="flex items-center gap-3">
+                      <span className="inline-flex rounded-xl border border-border bg-background p-2.5 text-steel shadow-[var(--shadow-card)] transition-colors group-hover:border-steel/30">
+                        <Icon className="size-5" />
+                      </span>
+                      <h3 className="text-h3 text-foreground">{item.title}</h3>
+                    </div>
+                    <p className="mt-3 max-w-xl leading-relaxed text-muted-foreground">
+                      {item.desc}
+                    </p>
                   </div>
-                  <h3 className="mt-5 text-xl text-primary">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{item.desc}</p>
-                </div>
-              </AnimatedSection>
+                </AnimatedSection>
+              </li>
             );
           })}
-        </div>
+        </ol>
       </div>
     </section>
   );

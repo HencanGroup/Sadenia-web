@@ -7,7 +7,13 @@
     "hardware": "Matériel",
     "projects": "Projets",
     "contact": "Contact",
-    "cta": "Demander un devis"
+    "cta": "Demander un devis",
+    "solutionsDesc": "Les systèmes que nous concevons et déployons",
+    "technologyDesc": "Notre stack, nos serveurs et notre infrastructure",
+    "hardwareDesc": "Les équipements que nous développons",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "menu": "Menu"
   },
   "hero": {
     "badge": "Kinshasa, RDC",
@@ -28,6 +34,12 @@
     "subtitle": "Systèmes d'exploitation, plateformes Android, systèmes microfinance, collecte de revenus et gestion institutionnelle — conçus pour le marché congolais.",
     "learn": "En savoir plus",
     "all": "Toutes les solutions",
+    "challengeLabel": "Le défi",
+    "purposeLabel": "Notre objectif",
+    "capabilitiesLabel": "Capacités clés",
+    "sectorsLabel": "Secteurs",
+    "enquire": "Se renseigner sur ce système",
+    "jumpTo": "Systèmes",
     "items": [
       {
         "title": "Systèmes d'exploitation",
