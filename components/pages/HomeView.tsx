@@ -29,7 +29,7 @@ export function HomeView() {
           />
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {t.services.items.slice(0, 6).map((s, i) => (
-              <AnimatedSection key={s.title} delay={i * 0.06}>
+              <AnimatedSection key={s.title} delay={i * 0.06} className="h-full">
                 <ServiceCard
                   icon={serviceIcons[i]!}
                   title={s.title}

@@ -33,7 +33,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       <section className="bg-background py-20 sm:py-24">
         <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <AnimatedSection className="rounded-md border border-border border-l-2 border-l-steel bg-card p-8">
+          <AnimatedSection className="rounded-xl border border-border bg-card p-8 shadow-[var(--shadow-card)]">
             <h2 className="text-2xl text-primary">{a.missionTitle}</h2>
             <p className="mt-4 leading-relaxed text-muted-foreground">{a.mission}</p>
           </AnimatedSection>
@@ -79,7 +79,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <AnimatedSection
                 key={m.name}
                 delay={i * 0.06}
-                className="card-lift rounded-md border border-border bg-card p-6 text-center"
+                className="card-lift rounded-xl border border-border bg-card p-6 text-center"
               >
                 {"photo" in m && m.photo ? (
                   // eslint-disable-next-line @next/next/no-img-element

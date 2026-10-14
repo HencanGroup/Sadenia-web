@@ -6,6 +6,7 @@ import { ArrowRight, Check, Cpu, Target, Wrench, Rocket } from "lucide-react";
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { PageHero } from "@/components/layout/PageHero";
+import { buttonVariants } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { useLocale, useT } from "@/lib/use-i18n";
 
@@ -86,7 +87,7 @@ export function HardwareView() {
             </p>
             <Link
               href={`/${locale}/contact`}
-              className="mt-6 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-steel"
+              className={buttonVariants({ size: "lg", className: "mt-6" })}
             >
               {t.ctaBanner.button}
               <ArrowRight className="size-4" />

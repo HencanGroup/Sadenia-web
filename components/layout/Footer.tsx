@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Facebook, Globe, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
+import { Facebook, Linkedin, Mail, Phone, Twitter } from "lucide-react";
 
 import { company } from "@/lib/i18n";
 import { useLocale, useT } from "@/lib/use-i18n";
@@ -10,120 +10,126 @@ export function Footer() {
   const locale = useLocale();
   const t = useT();
 
+  const companyLinks = [
+    { href: `/${locale}/about`, label: t.nav.about },
+    { href: `/${locale}/solutions`, label: t.nav.solutions },
+    { href: `/${locale}/technology`, label: t.nav.technology },
+    { href: `/${locale}/hardware`, label: t.nav.hardware },
+    { href: `/${locale}/projects`, label: t.nav.projects },
+    { href: `/${locale}/contact`, label: t.nav.contact },
+  ];
+
+  const linkClass = "transition-colors hover:text-primary-foreground";
+
   return (
-    <footer className="bg-primary text-primary-foreground">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-4 lg:px-8">
-        <div>
-          <div className="inline-flex rounded-md bg-background p-2">
+    <footer className="relative overflow-hidden bg-ink text-primary-foreground">
+      <div className="glow absolute inset-0 opacity-40" />
+
+      <div className="relative mx-auto max-w-7xl px-4 pt-20 pb-10 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="Sadenia Systems SARL" className="h-9 w-auto" />
+            <img
+              src="/logo.png"
+              alt="Sadenia Systems SARL"
+              className="h-9 w-auto brightness-0 invert"
+            />
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-primary-foreground/65">
+              {t.footer.tagline}
+            </p>
+            <div className="mt-6 flex gap-2">
+              {[
+                { icon: Linkedin, href: company.social.linkedin, label: "LinkedIn" },
+                { icon: Facebook, href: company.social.facebook, label: "Facebook" },
+                { icon: Twitter, href: company.social.twitter, label: "Twitter" },
+              ].map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex size-9 items-center justify-center rounded-full border border-primary-foreground/15 bg-primary-foreground/5 text-primary-foreground/75 transition-colors hover:border-primary-foreground/30 hover:bg-primary-foreground/15 hover:text-primary-foreground"
+                >
+                  <Icon className="size-4" />
+                </a>
+              ))}
+            </div>
           </div>
-          <p className="mt-4 max-w-xs text-sm leading-relaxed text-primary-foreground/70">
-            {t.footer.tagline}
-          </p>
-          <div className="mt-5 flex gap-2">
-            {[
-              { icon: Linkedin, href: company.social.linkedin, label: "LinkedIn" },
-              { icon: Facebook, href: company.social.facebook, label: "Facebook" },
-              { icon: Twitter, href: company.social.twitter, label: "Twitter" },
-            ].map(({ icon: Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="rounded-md border border-primary-foreground/20 p-2 transition-colors hover:bg-steel"
-              >
-                <Icon className="size-4" />
-              </a>
-            ))}
-          </div>
-        </div>
 
-        <div>
-          <h3 className="text-sm font-semibold tracking-wide uppercase">{t.footer.services}</h3>
-          <ul className="mt-4 space-y-2 text-sm text-primary-foreground/70">
-            {t.services.items.slice(0, 5).map((s) => (
-              <li key={s.title}>
-                <Link href={`/${locale}/solutions`} className="transition-colors hover:text-sky">
-                  {s.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="text-sm font-semibold tracking-wide uppercase">{t.footer.company}</h3>
-          <ul className="mt-4 space-y-2 text-sm text-primary-foreground/70">
-            <li>
-              <Link href={`/${locale}/about`} className="hover:text-sky">
-                {t.nav.about}
-              </Link>
-            </li>
-            <li>
-              <Link href={`/${locale}/solutions`} className="hover:text-sky">
-                {t.nav.solutions}
-              </Link>
-            </li>
-            <li>
-              <Link href={`/${locale}/technology`} className="hover:text-sky">
-                {t.nav.technology}
-              </Link>
-            </li>
-            <li>
-              <Link href={`/${locale}/hardware`} className="hover:text-sky">
-                {t.nav.hardware}
-              </Link>
-            </li>
-            <li>
-              <Link href={`/${locale}/projects`} className="hover:text-sky">
-                {t.nav.projects}
-              </Link>
-            </li>
-            <li>
-              <Link href={`/${locale}/contact`} className="hover:text-sky">
-                {t.nav.contact}
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="text-sm font-semibold tracking-wide uppercase">{t.footer.contact}</h3>
-          <ul className="mt-4 space-y-3 text-sm text-primary-foreground/70">
-            {/* <li className="flex gap-2">
-              <MapPin className="mt-0.5 size-4 shrink-0 text-sky" />
-              <span>
-                {company.address[0]}
-                <br />
-                {company.address[1]}
-              </span>
-            </li> */}
-            <li className="flex gap-2">
-              <Mail className="mt-0.5 size-4 shrink-0 text-sky" />
-              <a href={`mailto:${company.email}`} className="hover:text-sky">
-                {company.email}
-              </a>
-            </li>
-            <li className="flex gap-2">
-              <Phone className="mt-0.5 size-4 shrink-0 text-sky" />
-              <span className="flex flex-col">
-                {company.phones.map((p) => (
-                  <a key={p} href={`tel:${p}`} className="hover:text-sky">
-                    {p}
-                  </a>
+          <div className="grid gap-10 sm:grid-cols-3 lg:col-span-7">
+            <div>
+              <h3 className="text-sm font-semibold text-primary-foreground">{t.footer.services}</h3>
+              <ul className="mt-4 space-y-2.5 text-sm text-primary-foreground/65">
+                {t.services.items.slice(0, 5).map((s) => (
+                  <li key={s.title}>
+                    <Link href={`/${locale}/solutions`} className={linkClass}>
+                      {s.title}
+                    </Link>
+                  </li>
                 ))}
-              </span>
-            </li>
-          </ul>
-        </div>
-      </div>
+              </ul>
+            </div>
 
-      <div className="border-t border-primary-foreground/15">
-        <div className="mx-auto max-w-7xl px-4 py-5 text-xs text-primary-foreground/60 sm:px-6 lg:px-8">
-          © {new Date().getFullYear()} {company.name}. {t.footer.rights}
+            <div>
+              <h3 className="text-sm font-semibold text-primary-foreground">{t.footer.company}</h3>
+              <ul className="mt-4 space-y-2.5 text-sm text-primary-foreground/65">
+                {companyLinks.map((l) => (
+                  <li key={l.href}>
+                    <Link href={l.href} className={linkClass}>
+                      {l.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-sm font-semibold text-primary-foreground">{t.footer.contact}</h3>
+              <ul className="mt-4 space-y-3 text-sm text-primary-foreground/65">
+                {/* <li className="flex gap-2">
+                  <MapPin className="mt-0.5 size-4 shrink-0 text-sky" />
+                  <span>
+                    {company.address[0]}
+                    <br />
+                    {company.address[1]}
+                  </span>
+                </li> */}
+                <li className="flex gap-2.5">
+                  <Mail className="mt-0.5 size-4 shrink-0 text-sky" />
+                  <a href={`mailto:${company.email}`} className={linkClass}>
+                    {company.email}
+                  </a>
+                </li>
+                <li className="flex gap-2.5">
+                  <Phone className="mt-0.5 size-4 shrink-0 text-sky" />
+                  <span className="flex flex-col gap-1">
+                    {company.phones.map((p) => (
+                      <a key={p} href={`tel:${p}`} className={linkClass}>
+                        {p}
+                      </a>
+                    ))}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <p
+          aria-hidden="true"
+          className="mt-16 bg-gradient-to-b from-primary-foreground/15 to-transparent bg-clip-text font-display text-[18vw] leading-none font-semibold tracking-[-0.05em] text-transparent select-none lg:text-[11.5rem]"
+        >
+          Sadenia
+        </p>
+
+        <div className="mt-2 flex flex-col gap-2 border-t border-primary-foreground/10 pt-6 text-xs text-primary-foreground/50 sm:flex-row sm:items-center sm:justify-between">
+          <span>
+            © {new Date().getFullYear()} {company.name}. {t.footer.rights}
+          </span>
+          <a href={`https://${company.website}`} className={linkClass}>
+            {company.website}
+          </a>
         </div>
       </div>
     </footer>

@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Geist, Inter } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
 
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
-const poppins = Poppins({
+const geist = Geist({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-poppins",
+  variable: "--font-geist",
   display: "swap",
 });
 
@@ -45,7 +44,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="fr" className={`${poppins.variable} ${inter.variable}`}>
+    <html lang="fr" className={`${geist.variable} ${inter.variable}`}>
       <body>
         {gaId && (
           <>

@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { buttonVariants } from "@/components/ui/button";
 import { PageHero } from "@/components/layout/PageHero";
 import { company } from "@/lib/i18n";
 import { useT } from "@/lib/use-i18n";
@@ -127,7 +128,7 @@ export function ContactView() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-steel disabled:opacity-60"
+                className={buttonVariants({ size: "lg" })}
               >
                 {isSubmitting ? c.sending : c.send}
                 <Send className="size-4" />

@@ -1,4 +1,5 @@
 import { AnimatedSection } from "@/components/AnimatedSection";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { cn } from "@/lib/utils";
 
 export function SectionHeading({
@@ -7,29 +8,23 @@ export function SectionHeading({
   subtitle,
   center = true,
   invert = false,
+  className,
 }: {
   kicker?: string;
   title: string;
   subtitle?: string;
   center?: boolean;
   invert?: boolean;
+  className?: string;
 }) {
   return (
-    <AnimatedSection className={cn("max-w-2xl", center && "mx-auto text-center")}>
-      {kicker && (
-        <span
-          className={cn(
-            "text-xs font-semibold tracking-[0.2em] uppercase",
-            invert ? "text-sky" : "text-steel",
-          )}
-        >
-          {kicker}
-        </span>
-      )}
+    <AnimatedSection className={cn("max-w-2xl", center && "mx-auto text-center", className)}>
+      {kicker && <Eyebrow invert={invert}>{kicker}</Eyebrow>}
       <h2
         className={cn(
-          "mt-3 text-3xl sm:text-4xl",
-          invert ? "text-primary-foreground" : "text-primary",
+          "text-h2",
+          kicker && "mt-5",
+          invert ? "text-primary-foreground" : "text-foreground",
         )}
       >
         {title}
@@ -37,7 +32,7 @@ export function SectionHeading({
       {subtitle && (
         <p
           className={cn(
-            "mt-4 text-base leading-relaxed",
+            "text-lead mt-4",
             invert ? "text-primary-foreground/75" : "text-muted-foreground",
           )}
         >

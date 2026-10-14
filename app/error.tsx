@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 
+import { buttonVariants } from "@/components/ui/button";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
 
 export default function Error({
@@ -26,16 +27,10 @@ export default function Error({
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button
-            onClick={reset}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
+          <button onClick={reset} className={buttonVariants()}>
             Try again
           </button>
-          <Link
-            href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
-          >
+          <Link href="/" className={buttonVariants({ variant: "outline" })}>
             Go home
           </Link>
         </div>

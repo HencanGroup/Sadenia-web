@@ -6,6 +6,7 @@ import { ArrowRight, Target, Settings, Users, FlaskConical, Rocket } from "lucid
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { PageHero } from "@/components/layout/PageHero";
+import { buttonVariants } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { useLocale, useT } from "@/lib/use-i18n";
 
@@ -77,7 +78,7 @@ export function RoadmapView() {
             <p className="text-sm leading-relaxed text-muted-foreground italic">{t.roadmap.note}</p>
             <Link
               href={`/${locale}/contact`}
-              className="mt-6 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-steel"
+              className={buttonVariants({ size: "lg", className: "mt-6" })}
             >
               {t.roadmap.cta}
               <ArrowRight className="size-4" />

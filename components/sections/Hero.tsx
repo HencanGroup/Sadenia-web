@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import { useEffect, useRef } from "react";
 import { ArrowRight, MapPin } from "lucide-react";
 
+import { buttonVariants } from "@/components/ui/button";
 import { useLocale, useT } from "@/lib/use-i18n";
 
 function HeroVideo() {
@@ -45,13 +46,13 @@ export function Hero() {
     <section className="gradient-hero relative overflow-hidden">
       <HeroVideo />
       <div className="absolute inset-0 bg-gradient-to-r from-primary/75 via-primary/35 to-transparent" />
-      <div className="grid-pattern absolute inset-0 opacity-20" />
+      <div className="glow absolute inset-0" />
       <div className="relative mx-auto max-w-7xl px-4 pt-36 pb-24 sm:px-6 lg:px-8 lg:pt-44 lg:pb-32">
         <motion.span
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/25 px-3 py-1 text-xs font-semibold tracking-wide text-primary-foreground/85 uppercase"
+          className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/5 px-3 py-1 text-xs font-medium text-primary-foreground/85 backdrop-blur-sm"
         >
           <MapPin className="size-3.5 text-sky" />
           {t.hero.badge}
@@ -60,7 +61,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-6 max-w-3xl text-4xl leading-[1.08] text-primary-foreground sm:text-5xl lg:text-6xl"
+          className="text-display mt-6 max-w-3xl text-primary-foreground"
         >
           {t.hero.title}
         </motion.h1>
@@ -68,7 +69,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-6 max-w-xl text-base leading-relaxed text-primary-foreground/75 sm:text-lg"
+          className="text-lead mt-6 max-w-xl text-primary-foreground/75"
         >
           {t.hero.subtitle}
         </motion.p>
@@ -80,14 +81,14 @@ export function Hero() {
         >
           <Link
             href={`/${locale}/solutions`}
-            className="group inline-flex items-center gap-2 rounded-md bg-sky px-6 py-3.5 text-sm font-semibold text-sky-foreground transition-colors hover:bg-primary-foreground"
+            className={buttonVariants({ variant: "accent", size: "lg" })}
           >
             {t.hero.cta}
-            <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="transition-transform group-hover/button:translate-x-0.5" />
           </Link>
           <Link
             href={`/${locale}/contact`}
-            className="inline-flex items-center rounded-md border border-primary-foreground/35 px-6 py-3.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
+            className={buttonVariants({ variant: "onDark", size: "lg" })}
           >
             {t.hero.cta2}
           </Link>
