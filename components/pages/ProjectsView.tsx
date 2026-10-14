@@ -59,6 +59,7 @@ export function ProjectsView() {
                   <ProjectCard
                     title={p.title}
                     desc={p.desc}
+                    categoryKey={p.category}
                     category={
                       t.projects.categories[p.category as keyof typeof t.projects.categories]
                     }

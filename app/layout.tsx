@@ -1,21 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Inter } from "next/font/google";
+import { Outfit } from "next/font/google";
 import Script from "next/script";
 import type { ReactNode } from "react";
 
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
-const geist = Geist({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-geist",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
+  variable: "--font-outfit",
   display: "swap",
 });
 
@@ -44,7 +37,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="fr" className={`${geist.variable} ${inter.variable}`}>
+    <html lang="fr" className={outfit.variable}>
       <body>
         {gaId && (
           <>
