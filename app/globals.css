@@ -113,6 +113,9 @@
   --gradient-glow:
     radial-gradient(60% 60% at 85% 0%, oklch(0.58 0.14 251 / 0.45) 0%, transparent 70%),
     radial-gradient(45% 55% at 0% 100%, oklch(0.75 0.11 236 / 0.22) 0%, transparent 70%);
+  --gradient-glow-light:
+    radial-gradient(50% 70% at 90% 0%, oklch(0.75 0.11 236 / 0.22) 0%, transparent 70%),
+    radial-gradient(40% 60% at 10% 10%, oklch(0.58 0.14 251 / 0.1) 0%, transparent 70%);
   --shadow-card:
     0 1px 2px oklch(0.2 0.025 262 / 0.04), 0 4px 12px -4px oklch(0.2 0.025 262 / 0.06);
   --shadow-lift:
@@ -252,6 +255,20 @@
 /* Soft radial glow for dark brand surfaces (hero, page hero, CTA). */
 @utility glow {
   background-image: var(--gradient-glow);
+}
+
+/* Softer glow for light surfaces (inner page heroes). */
+@utility glow-light {
+  background-image: var(--gradient-glow-light);
+}
+
+/* Faint line grid that fades out toward the edges. */
+@utility grid-fade {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--steel) 9%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--steel) 9%, transparent) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 80% at 80% 0%, black, transparent 75%);
 }
 
 @utility card-lift {

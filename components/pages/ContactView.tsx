@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Mail, Map, MapPin, Phone, Send } from "lucide-react";
+import { ArrowUpRight, Mail, MapPin, Phone, Send } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -61,49 +61,75 @@ export function ContactView() {
   };
 
   const field =
-    "w-full rounded-md border border-input bg-card px-3.5 py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-steel";
+    "mt-2 w-full rounded-xl border border-input bg-background px-4 py-3 text-[0.9375rem] text-foreground outline-none transition-[border-color,box-shadow] placeholder:text-muted-foreground focus:border-steel focus:ring-4 focus:ring-steel/15 aria-[invalid=true]:border-destructive";
+  const label = "text-sm font-medium text-foreground";
+  const error = "mt-1.5 text-xs text-destructive";
+
+  const methods = [
+    { icon: Mail, label: "Email", value: company.email, href: `mailto:${company.email}` },
+    ...company.phones.map((p) => ({ icon: Phone, label: c.phones, value: p, href: `tel:${p}` })),
+    // { icon: MapPin, label: c.address, value: company.address.join(", "), href: MAP_URL },
+  ];
 
   return (
     <>
       <PageHero kicker={c.kicker} title={c.title} subtitle={c.subtitle} />
 
-      <section className="bg-background py-20 sm:py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[1.3fr_1fr] lg:px-8">
-          <AnimatedSection>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
+      <section className="bg-background py-16 sm:py-24">
+        <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:gap-10 lg:px-8">
+          <AnimatedSection className="lg:col-span-8">
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="space-y-5 rounded-3xl border border-border bg-card p-6 shadow-[var(--shadow-card)] sm:p-10"
+              noValidate
+            >
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
-                  <label htmlFor="name" className="text-sm font-medium text-primary">
+                  <label htmlFor="name" className={label}>
                     {c.name}
                   </label>
-                  <input id="name" {...register("name")} className={cn(field, "mt-2")} />
-                  {errors.name && (
-                    <p className="mt-1.5 text-xs text-destructive">{errors.name.message}</p>
-                  )}
+                  <input
+                    id="name"
+                    autoComplete="name"
+                    aria-invalid={!!errors.name}
+                    {...register("name")}
+                    className={field}
+                  />
+                  {errors.name && <p className={error}>{errors.name.message}</p>}
                 </div>
                 <div>
-                  <label htmlFor="email" className="text-sm font-medium text-primary">
+                  <label htmlFor="email" className={label}>
                     {c.email}
                   </label>
-                  <input id="email" {...register("email")} className={cn(field, "mt-2")} />
-                  {errors.email && (
-                    <p className="mt-1.5 text-xs text-destructive">{errors.email.message}</p>
-                  )}
+                  <input
+                    id="email"
+                    type="email"
+                    autoComplete="email"
+                    aria-invalid={!!errors.email}
+                    {...register("email")}
+                    className={field}
+                  />
+                  {errors.email && <p className={error}>{errors.email.message}</p>}
                 </div>
                 <div>
-                  <label htmlFor="phone" className="text-sm font-medium text-primary">
+                  <label htmlFor="phone" className={label}>
                     {c.phone}
                   </label>
-                  <input id="phone" {...register("phone")} className={cn(field, "mt-2")} />
-                  {errors.phone && (
-                    <p className="mt-1.5 text-xs text-destructive">{errors.phone.message}</p>
-                  )}
+                  <input
+                    id="phone"
+                    type="tel"
+                    autoComplete="tel"
+                    aria-invalid={!!errors.phone}
+                    {...register("phone")}
+                    className={field}
+                  />
+                  {errors.phone && <p className={error}>{errors.phone.message}</p>}
                 </div>
                 <div>
-                  <label htmlFor="subject" className="text-sm font-medium text-primary">
+                  <label htmlFor="subject" className={label}>
                     {c.subject}
                   </label>
-                  <select id="subject" {...register("subject")} className={cn(field, "mt-2")}>
+                  <select id="subject" {...register("subject")} className={cn(field, "h-[50px]")}>
                     <option value="services">{c.subjects.services}</option>
                     <option value="partnership">{c.subjects.partnership}</option>
                     <option value="support">{c.subjects.support}</option>
@@ -112,93 +138,50 @@ export function ContactView() {
                 </div>
               </div>
               <div>
-                <label htmlFor="message" className="text-sm font-medium text-primary">
+                <label htmlFor="message" className={label}>
                   {c.message}
                 </label>
                 <textarea
                   id="message"
                   rows={6}
+                  aria-invalid={!!errors.message}
                   {...register("message")}
-                  className={cn(field, "mt-2 resize-y")}
+                  className={cn(field, "resize-y")}
                 />
-                {errors.message && (
-                  <p className="mt-1.5 text-xs text-destructive">{errors.message.message}</p>
-                )}
+                {errors.message && <p className={error}>{errors.message.message}</p>}
               </div>
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={buttonVariants({ size: "lg" })}
+                className={buttonVariants({ size: "lg", className: "w-full sm:w-auto" })}
               >
                 {isSubmitting ? c.sending : c.send}
-                <Send className="size-4" />
+                <Send />
               </button>
             </form>
           </AnimatedSection>
 
-          <AnimatedSection delay={0.1} className="rounded-md bg-surface p-8">
-            <h2 className="text-xl text-primary">{c.infoTitle}</h2>
-            <dl className="mt-6 space-y-6 text-sm">
-              {/* <div>
-                <dt className="flex items-center gap-2 font-semibold text-primary">
-                  <MapPin className="size-4 text-steel" /> {c.address}
-                </dt>
-                <dd className="mt-1.5 text-muted-foreground">
+          <AnimatedSection delay={0.1} className="lg:col-span-4">
+            <h2 className="text-h3 text-foreground">{c.infoTitle}</h2>
+            <ul className="mt-5 space-y-3">
+              {methods.map(({ icon: Icon, label: methodLabel, value, href }) => (
+                <li key={value}>
                   <a
-                    href={MAP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block hover:text-steel"
+                    href={href}
+                    className="card-lift group flex items-center gap-4 rounded-2xl border border-border bg-card p-4"
                   >
-                    {company.address.map((l) => (
-                      <span key={l} className="block">
-                        {l}
-                      </span>
-                    ))}
+                    <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary text-steel transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                      <Icon className="size-4" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-xs text-muted-foreground">{methodLabel}</span>
+                      <span className="block truncate font-medium text-foreground">{value}</span>
+                    </span>
+                    <ArrowUpRight className="size-4 text-muted-foreground transition-colors group-hover:text-steel" />
                   </a>
-                </dd>
-              </div> */}
-              <div>
-                <dt className="flex items-center gap-2 font-semibold text-primary">
-                  <Phone className="size-4 text-steel" /> {c.phones}
-                </dt>
-                <dd className="mt-1.5 space-y-1 text-muted-foreground">
-                  {company.phones.map((p) => (
-                    <a key={p} href={`tel:${p}`} className="block hover:text-steel">
-                      {p}
-                    </a>
-                  ))}
-                </dd>
-              </div>
-              <div>
-                <dt className="flex items-center gap-2 font-semibold text-primary">
-                  <Mail className="size-4 text-steel" /> Email
-                </dt>
-                <dd className="mt-1.5">
-                  <a
-                    href={`mailto:${company.email}`}
-                    className="text-muted-foreground hover:text-steel"
-                  >
-                    {company.email}
-                  </a>
-                </dd>
-              </div>
-              {/* <div>
-                <dt className="flex items-center gap-2 font-semibold text-primary">
-                  <Map className="size-4 text-steel" /> {c.map}
-                </dt>
-                <dd className="mt-1.5">
-                  <a
-                    href={MAP_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-muted-foreground hover:text-steel"
-                  >
-                    {c.mapLink}
-                  </a>
-                </dd>
-              </div> */}
-            </dl>
+                </li>
+              ))}
+            </ul>
           </AnimatedSection>
         </div>
       </section>

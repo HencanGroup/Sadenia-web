@@ -32,7 +32,9 @@ function HeroVideo() {
       playsInline
       preload="metadata"
       poster="/hero-poster.jpg"
-      className="absolute inset-0 h-full w-full object-cover"
+      // Mirrored so the network shapes sit on the right (behind the panel, away from the text),
+      // and blended in luminosity mode so the teal footage takes on the navy brand colour.
+      className="absolute inset-0 h-full w-full -scale-x-100 object-cover opacity-70 mix-blend-luminosity"
       aria-hidden="true"
     >
       <source src="/animated-video.mp4" type="video/mp4" />
@@ -94,9 +96,16 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-ink">
       <HeroVideo />
-      <div className="absolute inset-0 bg-gradient-to-r from-ink/90 via-ink/60 to-ink/20" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" />
-      <div className="glow absolute inset-0 opacity-60" />
+      {/* Brand-colour wash over the monochrome video */}
+      <div className="absolute inset-0 bg-[radial-gradient(70%_80%_at_85%_20%,oklch(0.58_0.14_251/0.45),transparent_70%)] mix-blend-screen" />
+      <div className="absolute inset-0 bg-[radial-gradient(50%_60%_at_100%_100%,oklch(0.75_0.11_236/0.18),transparent_70%)]" />
+      {/* Keep the text side calm and fade into the next section */}
+      <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/75 to-ink/0" />
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-sky/30 to-transparent"
+      />
 
       <div className="relative mx-auto grid max-w-7xl items-end gap-12 px-4 pt-28 pb-16 sm:px-6 lg:grid-cols-12 lg:px-8 lg:pt-32 lg:pb-24">
         <div className="lg:col-span-7">

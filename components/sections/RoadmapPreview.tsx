@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
-import { AnimatedSection } from "@/components/AnimatedSection";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { Steps } from "@/components/ui/steps";
 import { useLocale, useT } from "@/lib/use-i18n";
 
 export function RoadmapPreview() {
@@ -30,32 +30,7 @@ export function RoadmapPreview() {
           </Link>
         </div>
 
-        <ol className="relative mt-14 grid gap-8 lg:grid-cols-4 lg:gap-6">
-          {/* Connecting line: vertical on mobile, horizontal on desktop */}
-          <span
-            aria-hidden="true"
-            className="absolute top-2 bottom-2 left-[15px] w-px bg-gradient-to-b from-steel via-border to-border lg:top-[15px] lg:right-0 lg:bottom-auto lg:left-0 lg:h-px lg:w-auto lg:bg-gradient-to-r"
-          />
-          {t.roadmapPreview.phases.map((phase, i) => (
-            <li key={phase.title} className="relative">
-              <AnimatedSection delay={i * 0.08} className="flex gap-5 lg:block">
-                <span
-                  className={
-                    i === 0
-                      ? "relative flex size-8 shrink-0 items-center justify-center rounded-full bg-steel text-xs font-semibold text-primary-foreground ring-4 ring-surface"
-                      : "relative flex size-8 shrink-0 items-center justify-center rounded-full border border-border bg-background text-xs font-semibold text-muted-foreground ring-4 ring-surface"
-                  }
-                >
-                  {i + 1}
-                </span>
-                <div className="lg:mt-6 lg:pr-6">
-                  <h3 className="text-h3 text-foreground">{phase.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{phase.desc}</p>
-                </div>
-              </AnimatedSection>
-            </li>
-          ))}
-        </ol>
+        <Steps className="mt-14" ringClass="ring-surface" steps={t.roadmapPreview.phases} />
       </div>
     </section>
   );

@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Target, Settings, Users, FlaskConical, Rocket } from "lucide-react";
+import { ArrowRight, FlaskConical, Info, Rocket, Settings, Target, Users } from "lucide-react";
 
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { PageHero } from "@/components/layout/PageHero";
-import { buttonVariants } from "@/components/ui/button";
+import { Eyebrow } from "@/components/ui/eyebrow";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { Timeline } from "@/components/ui/steps";
 import { useLocale, useT } from "@/lib/use-i18n";
 
 const milestoneIcons = [Target, Settings, Users, FlaskConical, Rocket];
@@ -15,73 +16,45 @@ const milestoneIcons = [Target, Settings, Users, FlaskConical, Rocket];
 export function RoadmapView() {
   const t = useT();
   const locale = useLocale();
+  const r = t.roadmap;
 
   return (
     <>
-      <PageHero kicker={t.roadmap.kicker} title={t.roadmap.title} subtitle={t.roadmap.subtitle} />
+      <PageHero kicker={r.kicker} title={r.title} subtitle={r.subtitle} />
 
-      <section className="bg-background py-20 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <AnimatedSection className="mx-auto max-w-3xl text-center">
-            <h2 className="text-2xl text-primary sm:text-3xl">{t.roadmap.objectiveTitle}</h2>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              {t.roadmap.objective}
-            </p>
-          </AnimatedSection>
-        </div>
+      <section className="bg-background py-20 sm:py-28">
+        <AnimatedSection className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <Eyebrow>{r.objectiveTitle}</Eyebrow>
+          <p className="mt-6 font-display text-2xl leading-snug font-medium tracking-tight text-foreground sm:text-3xl">
+            {r.objective}
+          </p>
+        </AnimatedSection>
       </section>
 
-      <section className="bg-surface py-20 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading title={t.roadmap.timelineTitle} />
-          <div className="relative mt-12">
-            <div className="absolute left-4 top-0 bottom-0 w-px bg-border sm:left-1/2 sm:-translate-x-px" />
+      <section className="bg-surface py-20 sm:py-28">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading title={r.timelineTitle} />
+          <Timeline
+            className="mt-14"
+            items={r.milestones.map((m, i) => ({
+              label: m.month,
+              title: m.title,
+              desc: m.desc,
+              icon: milestoneIcons[i],
+            }))}
+          />
 
-            <div className="space-y-12">
-              {t.roadmap.milestones.map((milestone, i) => {
-                const Icon = milestoneIcons[i]!;
-                const isEven = i % 2 === 0;
-                return (
-                  <AnimatedSection
-                    key={milestone.title}
-                    delay={i * 0.1}
-                    className="relative flex items-start gap-6 sm:gap-0"
-                  >
-                    <div className="relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full border border-border bg-card">
-                      <Icon className="size-4 text-steel" />
-                    </div>
-
-                    <div
-                      className={`flex-1 rounded-md border border-border bg-card p-6 sm:w-[calc(50%-2rem)] ${
-                        isEven ? "sm:mr-auto sm:pr-12" : "sm:ml-auto sm:pl-12"
-                      }`}
-                    >
-                      <span className="text-xs font-semibold tracking-wide uppercase text-steel">
-                        {milestone.month}
-                      </span>
-                      <h3 className="mt-1 text-lg text-primary">{milestone.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                        {milestone.desc}
-                      </p>
-                    </div>
-                  </AnimatedSection>
-                );
-              })}
+          <AnimatedSection className="mt-14 flex flex-col gap-5 rounded-2xl border border-border bg-background p-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
+              <Info className="mt-0.5 size-4 shrink-0 text-steel" />
+              <p>{r.note}</p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-background py-16">
-        <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <AnimatedSection>
-            <p className="text-sm leading-relaxed text-muted-foreground italic">{t.roadmap.note}</p>
             <Link
               href={`/${locale}/contact`}
-              className={buttonVariants({ size: "lg", className: "mt-6" })}
+              className="group inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-steel hover:text-primary"
             >
-              {t.roadmap.cta}
-              <ArrowRight className="size-4" />
+              {r.cta}
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
           </AnimatedSection>
         </div>

@@ -25,24 +25,38 @@ export function ProjectsView() {
         title={t.projects.title}
         subtitle={t.projects.subtitle}
       />
-      <section className="bg-background py-16 sm:py-20">
+      <section className="bg-background py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap gap-2">
-            {filters.map((f) => (
-              <button
-                key={f}
-                type="button"
-                onClick={() => setFilter(f)}
-                className={cn(
-                  "rounded-full border px-4 py-2 text-sm font-medium transition-colors",
-                  filter === f
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-card text-muted-foreground hover:text-primary",
-                )}
-              >
-                {f === "all" ? t.projects.all : t.projects.categories[f]}
-              </button>
-            ))}
+          <div className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+            <div
+              role="tablist"
+              className="inline-flex gap-1 rounded-full border border-border bg-surface p-1"
+            >
+              {filters.map((f) => (
+                <button
+                  key={f}
+                  type="button"
+                  role="tab"
+                  aria-selected={filter === f}
+                  onClick={() => setFilter(f)}
+                  className={cn(
+                    "relative rounded-full px-4 py-2 text-sm font-medium whitespace-nowrap transition-colors",
+                    filter === f ? "text-primary" : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {filter === f && (
+                    <motion.span
+                      layoutId="project-filter"
+                      transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+                      className="absolute inset-0 rounded-full bg-background shadow-[var(--shadow-card)]"
+                    />
+                  )}
+                  <span className="relative">
+                    {f === "all" ? t.projects.all : t.projects.categories[f]}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
